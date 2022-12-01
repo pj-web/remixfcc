@@ -21,16 +21,19 @@ contract FundMe {
         require(msg.value.getConversionRate() >= minimumUsd, "Didn't send enought"); // 1e18 == 1 * 10 ** 18 == 1000000000000000000
         // 18 decimals
         funders.push(msg.sender);
-        addressToAmountFunded[msg.sender] = msg.value;
+        addressToAmountFunded[msg.sender] += msg.value;
 
         // What is reverting?
         // Undo any action before, and send remaning gas back
     }
 
- 
 
-
-
-    // function withdrow {}
-
+    function withdrow() public {}
+        /* starting index, ending index, step amount */
+        for (uint256 funderIndex = 0; funderIndex < funders.lenght; funderIndex++) {
+            address funder = funders[funderIndex];
+            addressToAmountFunded[funder] = 0;
+        }
+        // We still need to reset the array
+        // and actually withdrow the funds
 }
