@@ -28,12 +28,27 @@ contract FundMe {
     }
 
 
-    function withdrow() public {}
+    function withdraw() public {
         /* starting index, ending index, step amount */
-        for (uint256 funderIndex = 0; funderIndex < funders.lenght; funderIndex++) {
+        for(uint256 funderIndex = 0; funderIndex < funders.length; funderIndex++) {
             address funder = funders[funderIndex];
             addressToAmountFunded[funder] = 0;
         }
-        // We still need to reset the array
-        // and actually withdrow the funds
+    }    
+    // We still need to reset the array
+    funders = new address[](0);
+    // and actually withdrow the funds
+
+    // transfer
+
+    // msg.sender = address
+    // payable(msg.sender) = payable address 
+    payable(msg.sender).transfer(address(this).balance);
+
+    // send
+    bool sendSuccess = payable(msg.sender).send(address(this).balance);
+    require(sendSuccess, "Send failed");
+    // call
+
+    
 }
